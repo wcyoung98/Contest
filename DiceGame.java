@@ -7,21 +7,19 @@ public class DiceGame {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		int[] map = new int[113];
-		int[] random = new int[10];
+		int random;
 		int player1 = 0, player2 = 0;
 		int turn = 1, bomb = 1;
 		int dice1, dice2;
 		
 		for(int i = 1; i <= 100; i++) map[i] = 0;
-		
 		for(int i = 0; i < 10; i++){
-			random[i] = (int)(Math.random() * 100) + 1;
-			for(int j = 0; j < i; j++)
-				if(random[i] == random[j]){
-					i--;
-					break;
-				}
-			map[random[i]] = bomb;
+			random = (int)(Math.random() * 100) + 1;
+			if(map[random] == bomb){
+				i--;
+				continue;
+			}
+			map[random] = bomb;
 		}
 		for(int i = 1; i <= 100; i++){
 			if(map[i] == bomb) System.out.print("■ ");
@@ -42,15 +40,11 @@ public class DiceGame {
 				player1 = player1 + (dice1+dice2);
 				System.out.println("주사위1 : " + dice1 + ", 주사위2 : " + dice2 + " 합계 : " + (dice1+dice2));
 				System.out.println("Player1의 점수는 " + player1 + "입니다.");
-				while(true){
-					if(map[player1] == bomb){
-						System.out.println(player1 + "은(는) 지뢰입니다.");
-						player1 = player1 - 2;
-						if(player1 < 0) player1 = 0;
-						System.out.println("Player1의 점수는 " + player1 + "입니다.");
-						continue;
-					}
-					break;
+				while(map[player1] == bomb){
+					System.out.println(player1 + "은(는) 지뢰입니다.");
+					player1 = player1 - 2;
+					if(player1 < 0) player1 = 0;
+					System.out.println("Player1의 점수는 " + player1 + "입니다.");
 				}
 				System.out.println();
 				if(dice1 == dice2) continue;
@@ -59,15 +53,11 @@ public class DiceGame {
 				player2 = player2 + (dice1+dice2);
 				System.out.println("주사위1 : " + dice1 + ", 주사위2 : " + dice2 + " 합계 : " + (dice1+dice2));
 				System.out.println("Player2의 점수는 " + player2 + "입니다.");
-				while(true){
-					if(map[player1] == bomb){
-						System.out.println(player2 + "은(는) 지뢰입니다.");
-						player2 = player2 - 2;
-						if(player2 < 0) player2 = 0;
-						System.out.println("Player2의 점수는 " + player2 + "입니다.");
-						continue;
-					}
-					break;
+				while(map[player1] == bomb){
+					System.out.println(player2 + "은(는) 지뢰입니다.");
+					player2 = player2 - 2;
+					if(player2 < 0) player2 = 0;
+					System.out.println("Player2의 점수는 " + player2 + "입니다.");
 				}
 				System.out.println();
 				if(dice1 == dice2) continue;
